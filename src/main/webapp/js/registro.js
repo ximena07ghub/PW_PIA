@@ -1,51 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('formRegistro');
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        limpiarErrores();
-
-        let valido = true;
-
-        const nombres = document.querySelector('[name="nombres"]').value.trim();
-        const apellidos = document.querySelector('[name="apellidos"]').value.trim();
-        const fechaNac = document.querySelector('[name="fechaNacimiento"]').value;
-        const correo = document.querySelector('[name="correo"]').value.trim();
-        const nombreUsuario = document.querySelector('[name="nombreUsuario"]').value.trim();
-        const password = document.querySelector('[name="password"]').value;
-        const confirmPassword = document.querySelector('[name="confirmPassword"]').value;
-
-        // Validaciones
-        if (nombres === "") { mostrarError('nombres', 'El nombre es obligatorio'); valido = false; }
-        if (apellidos === "") { mostrarError('apellidos', 'Los apellidos son obligatorios'); valido = false; }
-        if (fechaNac === "") { mostrarError('fechaNacimiento', 'La fecha de nacimiento es obligatoria'); valido = false; }
-        if (correo === "" || !validarEmail(correo)) { mostrarError('correo', 'Correo inválido'); valido = false; }
-        if (nombreUsuario === "") { mostrarError('nombreUsuario', 'El nombre de usuario es obligatorio'); valido = false; }
-        if (password.length < 8) { mostrarError('password', 'Mínimo 8 caracteres'); valido = false; }
-        if (!/[A-Z]/.test(password)) { mostrarError('password', 'Debe tener una mayúscula'); valido = false; }
-        if (!/[a-z]/.test(password)) { mostrarError('password', 'Debe tener una minúscula'); valido = false; }
-        if (!/[0-9]/.test(password)) { mostrarError('password', 'Debe tener un número'); valido = false; }
-        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) { mostrarError('password', 'Debe tener un signo de puntuación'); valido = false; }
-        if (password !== confirmPassword) { mostrarError('confirmPassword', 'Las contraseñas no coinciden'); valido = false; }
-
-        if (valido) {
-            form.submit();   // Envía al Servlet
-        }
-    });
-
-    function mostrarError(campo, mensaje) {
-        const span = document.getElementById('error' + campo.charAt(0).toUpperCase() + campo.slice(1));
-        if (span) {
-            span.textContent = mensaje;
-            span.style.display = 'block';
-        }
-    }
-
-    function limpiarErrores() {
-        document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
-    }
-
-    function validarEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-});
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Relax Zone</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="body-auth">
+    <div class="auth-container">
+        <div class="auth-info-side">
+            <h3>Bienvenido</h3>
+            <p>Únete a nuestra comunidad creativa.</p>
+        </div>
+        <div class="auth-form-side">
+            <form id="formRegistro">
+                <h3>Crea tu cuenta</h3>
+                <div class="form-grid">
+                    <div class="input-grupo"><label>Nombre</label><input type="text" id="nombre" required></div>
+                    <div class="input-grupo"><label>Correo</label><input type="email" id="correo" required></div>
+                    <div class="input-grupo"><label>Password</label><input type="password" id="pass" required></div>
+                    <div class="input-grupo"><label>Confirmar</label><input type="password" id="passConfirm" required></div>
+                </div>
+                <button type="submit" class="btn-auth">Registrarme</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('formRegistro').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const pass = document.getElementById('pass').value;
+            if(pass !== document.getElementById('passConfirm').value) return alert("Contraseñas no coinciden");
+            
+            const usuario = {
+                nombre: document.getElementById('nombre').value,
+                correo: document.getElementById('correo').value,
+                pass: pass,
+                foto: "img/avatar_default.png"
+            };
+            localStorage.setItem('usuarioBD', JSON.stringify(usuario));
+            alert("¡Usuario guardado con éxito!");
+            window.location.href = "login.jsp";
+        });
+    </script>
+</body>
+</html>

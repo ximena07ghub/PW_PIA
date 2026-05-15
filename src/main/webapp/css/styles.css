@@ -40,6 +40,49 @@ body {
     overflow-x: hidden; /* Importante para el carrusel */
 }
 
+/* --- 3. DASHBOARD / PERFIL --- */
+.progreso-container {
+    width: 100%;
+    background: #1a3a3a;
+    height: 10px;
+    margin: 10px 0;
+}
+
+.progreso-fill {
+    height: 100%;
+    background: var(--color-primario);
+    transition: width 1s ease-in-out;
+}
+
+.avatar-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primario);
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Modal (Ventana Emergente) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: var(--color-fondo-nav);
+    padding: 2rem;
+    border: 1px solid var(--color-borde);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
 /* =========================================
    2. Navegación con Búsqueda Integrada
    ========================================= */
@@ -396,19 +439,23 @@ body {
 .carrusel-card {
     flex: 0 0 var(--ancho-tarjeta);
     background-color: var(--color-fondo-card);
-    border-radius: 13px;
+    border-radius: 0 !important; /* Esquinas cuadradas */
     border: 1px solid var(--color-borde);
-    transition: transform 0.3s, border-color 0.3s;
+    /* Transición para el efecto dinámico */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     cursor: pointer;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Muy importante para que la imagen respete los bordes redondeados */
 }
 
 
 
+/* Al seleccionar o pasar el mouse, se ve más grande que los demás */
 .carrusel-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.1) translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(0, 230, 118, 0.2);
+    z-index: 100;
     border-color: var(--color-primario);
 }
 
@@ -745,12 +792,11 @@ body {
 }
 
 /* Lado del formulario (común para ambos) */
-.auth-form-side {
-    flex: 1.2;
-    padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.auth-form-side h3 {
+    font-size: 2.2rem;
+    color: #ffffff !important; /* Letra blanca arriba */
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .auth-form-side form {
