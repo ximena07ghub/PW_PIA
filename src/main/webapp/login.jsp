@@ -4,50 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar - Relax Zone</title>
+    <title>Iniciar Sesión - Relax Zone</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="body-auth">
 
     <nav class="navbar navbar-auth">
         <div class="contenedor-nav">
-            <a href="index.jsp" class="logo"> RELAX ZONE</a>
-            <div class="nav-links">
-                <a href="registro.jsp" class="btn-primario">Regístrate</a>
-            </div>
+            <a href="index.jsp" class="logo">RELAX ZONE</a>
         </div>
     </nav>
 
     <main class="auth-wrapper">
         <div class="auth-container login-layout">
             
+            <!-- Lado izquierdo con flor (como en tu imagen) -->
             <div class="auth-visual">
-                <img src="img/flor.jpg" alt="Login Seguro">
+                <img src="img/flor.jpg" alt="Bienvenido">
                 <h2>Bienvenido de vuelta.</h2>
                 <p>Tu comunidad creativa te espera.</p>
             </div>
 
+            <!-- Lado derecho - Formulario -->
             <div class="auth-form-side">
-                <!-- Formulario listo para el Servlet -->
                 <form id="formLogin" action="LoginServlet" method="post">
                     <h3>Iniciar Sesión</h3>
                     
+                    <% if ("1".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            Usuario/correo o contraseña incorrectos.
+                        </p>
+                    <% } else if ("db".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            No se pudo conectar con la base de datos. Revisa que MySQL esté encendido y que exista la base relaxzone.
+                        </p>
+                    <% } else if ("driver".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            Falta el conector de MySQL. Haz Clean and Build en NetBeans para descargar mysql-connector-j.
+                        </p>
+                    <% } else if ("credenciales".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            MySQL rechazó el usuario o contraseña. Revisa que root use la contraseña admin123.
+                        </p>
+                    <% } else if ("base".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            No existe la base relaxzone. Ejecuta el script database.sql en MySQL Workbench.
+                        </p>
+                    <% } else if ("conexion".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            No se pudo conectar con MySQL. Verifica que el servidor esté encendido en el puerto 3306.
+                        </p>
+                    <% } else if ("ok".equals(request.getParameter("registro"))) { %>
+                        <p style="background:rgba(42,201,230,0.14); border:1px solid rgba(42,201,230,0.45); color:#9ff3ff; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            Registro exitoso. Ahora inicia sesión con tu correo o nombre de usuario.
+                        </p>
+                    <% } %>
+
                     <div class="input-grupo">
-                        <label for="correo">Correo Electrónico</label>
-                        <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
-                        <span class="error-text" id="errorCorreo"></span>
+                        <label for="login">Correo electrónico o nombre de usuario</label>
+                        <input type="text" id="login" name="login" placeholder="correo@ejemplo.com o tu usuario" required>
                     </div>
 
                     <div class="input-grupo">
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
-                        <span class="error-text" id="errorPassword"></span>
                     </div>
 
                     <a href="#" class="olvido-password">¿Olvidaste tu contraseña?</a>
 
-                    <button type="submit" class="btn-auth">Entrar</button>
+                    <button type="submit" class="btn-auth">ENTRAR</button>
 
                     <p class="auth-switch">¿No tienes cuenta? <a href="registro.jsp">Regístrate aquí</a></p>
                 </form>
