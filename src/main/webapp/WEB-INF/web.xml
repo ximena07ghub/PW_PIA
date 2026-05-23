@@ -4,9 +4,17 @@
         <servlet-name>ActualizarPerfilServlet</servlet-name>
         <servlet-class>ActualizarPerfilServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PublicarComunidadServlet</servlet-name>
+        <servlet-class>PublicarComunidadServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ActualizarPerfilServlet</servlet-name>
         <url-pattern>/ActualizarPerfilServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublicarComunidadServlet</servlet-name>
+        <url-pattern>/PublicarComunidadServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

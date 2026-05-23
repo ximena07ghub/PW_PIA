@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="datos.DBConnection"%>
 <%
     String nombreUsuario = (String) session.getAttribute("nombreUsuario");
     boolean sesionActiva = nombreUsuario != null && !nombreUsuario.trim().isEmpty();
@@ -278,35 +280,76 @@
             <div class="split-panels">
                 <div class="community-panel" id="foro">
                     <h2>Foro y espacio social</h2>
-                    <form class="post-form" id="postForm">
-                        <textarea id="postText" placeholder="Comparte un avance, una pregunta o algo que estés procesando..."></textarea>
-                        <div class="post-form-row">
-                            <select id="postType">
-                                <option>Proceso creativo</option>
-                                <option>Bienestar emocional</option>
-                                <option>Busco colaborar</option>
-                                <option>Reflexión personal</option>
-                            </select>
-                            <button type="submit" class="btn-primario">Publicar</button>
-                        </div>
-                    </form>
+
+                    <% if (sesionActiva) { %>
+                        <form class="post-form" id="postForm" action="PublicarComunidadServlet" method="post">
+                            <textarea
+                                id="postText"
+                                name="contenido"
+                                placeholder="Comparte un avance, una pregunta o algo que estés procesando..."
+                                required
+                            ></textarea>
+
+                            <div class="post-form-row">
+                                <select id="postType" name="tipo" required>
+                                    <option value="Proceso creativo">Proceso creativo</option>
+                                    <option value="Bienestar emocional">Bienestar emocional</option>
+                                    <option value="Busco colaborar">Busco colaborar</option>
+                                    <option value="Reflexión personal">Reflexión personal</option>
+                                </select>
+
+                                <button type="submit" class="btn-primario">Publicar</button>
+                            </div>
+                        </form>
+                    <% } else { %>
+                        <p>Inicia sesión para publicar en la comunidad.</p>
+                    <% } %>
 
                     <div id="postList">
-                        <article class="post-card">
-                            <strong>Ana</strong>
-                            <p>Hoy terminé una serie de fotos sobre calma. Busco a alguien que quiera escribir textos breves para acompañarlas.</p>
-                            <span class="post-tag">Busco colaborar</span>
-                        </article>
-                        <article class="post-card">
-                            <strong>Luis</strong>
-                            <p>Me sentía bloqueado con una canción, pero el reto semanal me ayudó a terminar un primer borrador.</p>
-                            <span class="post-tag">Proceso creativo</span>
-                        </article>
-                        <article class="post-card">
-                            <strong>Sofía</strong>
-                            <p>Estoy practicando hablar con más claridad sobre lo que siento. A veces un paso pequeño sí cuenta.</p>
-                            <span class="post-tag">Bienestar emocional</span>
-                        </article>
+                        <%
+                            String sqlPublicaciones = "SELECT p.contenido, p.tipo, u.nombres, u.apellidos "
+                                    + "FROM comunidad_publicaciones p "
+                                    + "INNER JOIN usuarios u ON p.usuario_id = u.id "
+                                    + "ORDER BY p.fecha_creacion DESC";
+
+                            try (Connection con = DBConnection.getConnection();
+                                 PreparedStatement ps = con.prepareStatement(sqlPublicaciones);
+                                 ResultSet rs = ps.executeQuery()) {
+
+                                boolean hayPublicaciones = false;
+
+                                while (rs.next()) {
+                                    hayPublicaciones = true;
+                                    String autor = rs.getString("nombres") + " " + rs.getString("apellidos");
+                        %>
+                                    <article class="post-card">
+                                        <strong><%= autor %></strong>
+                                        <p><%= rs.getString("contenido") %></p>
+                                        <span class="post-tag"><%= rs.getString("tipo") %></span>
+                                    </article>
+                        <%
+                                }
+
+                                if (!hayPublicaciones) {
+                        %>
+                                    <article class="post-card">
+                                        <strong>Comunidad Relax Zone</strong>
+                                        <p>Aún no hay publicaciones. Sé la primera persona en compartir algo.</p>
+                                        <span class="post-tag">Bienestar emocional</span>
+                                    </article>
+                        <%
+                                }
+
+                            } catch (Exception e) {
+                        %>
+                                <article class="post-card">
+                                    <strong>Error</strong>
+                                    <p>No se pudieron cargar las publicaciones.</p>
+                                    <span class="post-tag"><%= e.getMessage() %></span>
+                                </article>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
 
@@ -321,10 +364,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Ana</td><td>Fotografía</td><td>Colaborar</td></tr>
-                            <tr><td>Luis</td><td>Música</td><td>Editor de video</td></tr>
-                            <tr><td>Sofía</td><td>Ilustración</td><td>Difusión</td></tr>
-                            <tr><td>Mateo</td><td>Escritura</td><td>Diseñador</td></tr>
+                            <%
+                                String sqlTalentos = "SELECT u.nombres, u.apellidos, t.talento, t.busca "
+                                        + "FROM comunidad_talentos t "
+                                        + "INNER JOIN usuarios u ON t.usuario_id = u.id "
+                                        + "ORDER BY t.fecha_creacion DESC";
+
+                                try (Connection con = DBConnection.getConnection();
+                                     PreparedStatement ps = con.prepareStatement(sqlTalentos);
+                                     ResultSet rs = ps.executeQuery()) {
+
+                                    boolean hayTalentos = false;
+
+                                    while (rs.next()) {
+                                        hayTalentos = true;
+                                        String autor = rs.getString("nombres") + " " + rs.getString("apellidos");
+                                        String talento = rs.getString("talento");
+                                        String busca = rs.getString("busca");
+
+                                        if (talento == null || talento.trim().isEmpty()) talento = "Sin registrar";
+                                        if (busca == null || busca.trim().isEmpty()) busca = "Sin registrar";
+                            %>
+                                        <tr>
+                                            <td><%= autor %></td>
+                                            <td><%= talento %></td>
+                                            <td><%= busca %></td>
+                                        </tr>
+                            <%
+                                    }
+
+                                    if (!hayTalentos) {
+                            %>
+                                        <tr>
+                                            <td colspan="3">Aún no hay talentos registrados.</td>
+                                        </tr>
+                            <%
+                                    }
+
+                                } catch (Exception e) {
+                            %>
+                                    <tr>
+                                        <td colspan="3">No se pudieron cargar los talentos.</td>
+                                    </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                 </div>
@@ -351,25 +435,5 @@
             </aside>
         </section>
     </main>
-
-    <script>
-        const postForm = document.getElementById("postForm");
-        const postList = document.getElementById("postList");
-
-        postForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const text = document.getElementById("postText").value.trim();
-            const type = document.getElementById("postType").value;
-
-            if (!text) return;
-
-            const article = document.createElement("article");
-            article.className = "post-card";
-            article.innerHTML = "<strong><%= nombreUsuario %></strong><p>" + text + "</p><span class='post-tag'>" + type + "</span>";
-            postList.prepend(article);
-            postForm.reset();
-        });
-    </script>
 </body>
 </html>

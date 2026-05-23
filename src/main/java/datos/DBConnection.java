@@ -1,3 +1,5 @@
+package datos;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -53,7 +55,7 @@ public class DBConnection {
     }
 
     private static void ensureTables(Connection connection) throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
+        String usuariosSql = "CREATE TABLE IF NOT EXISTS usuarios ("
         + "id INT AUTO_INCREMENT PRIMARY KEY,"
         + "nombres VARCHAR(100) NOT NULL,"
         + "apellidos VARCHAR(100) NOT NULL,"
@@ -69,10 +71,31 @@ public class DBConnection {
         + "intereses TEXT NULL,"
         + "fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
         + ")";
+        
+        String publicacionesSql = "CREATE TABLE IF NOT EXISTS comunidad_publicaciones ("
+            + "id INT AUTO_INCREMENT PRIMARY KEY,"
+            + "usuario_id INT NOT NULL,"
+            + "tipo VARCHAR(50) NOT NULL,"
+            + "contenido TEXT NOT NULL,"
+            + "fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            + "FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE"
+            + ")";
+
+        String talentosSql = "CREATE TABLE IF NOT EXISTS comunidad_talentos ("
+            + "id INT AUTO_INCREMENT PRIMARY KEY,"
+            + "usuario_id INT NOT NULL UNIQUE,"
+            + "talento TEXT NULL,"
+            + "busca TEXT NULL,"
+            + "fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            + "FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE"
+            + ")";
+
 
         try (java.sql.Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
-        }
+        statement.executeUpdate(usuariosSql);
+        statement.executeUpdate(publicacionesSql);
+        statement.executeUpdate(talentosSql);
+    }
     }
 
     private static String getConfig(String name, String defaultValue) {
