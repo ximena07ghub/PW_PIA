@@ -25,7 +25,7 @@ public class DBConnection {
 
         String url = getConfig("RELAXZONE_DB_URL", DEFAULT_URL);
         String user = getConfig("RELAXZONE_DB_USER", "root");
-        String password = getConfig("RELAXZONE_DB_PASSWORD", "admin123");
+        String password = getConfig("RELAXZONE_DB_PASSWORD", "Kevin_11");
 
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -54,16 +54,21 @@ public class DBConnection {
 
     private static void ensureTables(Connection connection) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY,"
-                + "nombres VARCHAR(100) NOT NULL,"
-                + "apellidos VARCHAR(100) NOT NULL,"
-                + "fecha_nacimiento DATE NOT NULL,"
-                + "correo VARCHAR(160) NOT NULL UNIQUE,"
-                + "nombre_usuario VARCHAR(80) NOT NULL UNIQUE,"
-                + "password_hash VARCHAR(64) NOT NULL,"
-                + "foto_perfil VARCHAR(255) NULL,"
-                + "fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
-                + ")";
+        + "id INT AUTO_INCREMENT PRIMARY KEY,"
+        + "nombres VARCHAR(100) NOT NULL,"
+        + "apellidos VARCHAR(100) NOT NULL,"
+        + "fecha_nacimiento DATE NOT NULL,"
+        + "correo VARCHAR(160) NOT NULL UNIQUE,"
+        + "nombre_usuario VARCHAR(80) NOT NULL UNIQUE,"
+        + "password_hash VARCHAR(64) NOT NULL,"
+        + "foto_perfil VARCHAR(500) NULL,"
+        + "sitio_web VARCHAR(500) NULL,"
+        + "biografia TEXT NULL,"
+        + "talentos TEXT NULL,"
+        + "genero VARCHAR(30) NULL,"
+        + "intereses TEXT NULL,"
+        + "fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
+        + ")";
 
         try (java.sql.Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);

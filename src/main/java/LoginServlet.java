@@ -21,8 +21,9 @@ public class LoginServlet extends HttpServlet {
 
         String login = clean(request.getParameter("login"));
         if (login.isEmpty()) {
-            login = clean(request.getParameter("correo")); // compatibilidad con el formulario anterior
+            login = clean(request.getParameter("correo"));
         }
+
         String password = clean(request.getParameter("password"));
 
         if (login.isEmpty() || password.isEmpty()) {
@@ -30,7 +31,8 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String sql = "SELECT id, nombres, apellidos, fecha_nacimiento, correo, nombre_usuario, password_hash "
+        String sql = "SELECT id, nombres, apellidos, fecha_nacimiento, correo, nombre_usuario, "
+                + "password_hash, foto_perfil, sitio_web, biografia, talentos, genero, intereses "
                 + "FROM usuarios WHERE correo = ? OR nombre_usuario = ?";
 
         try (Connection connection = DBConnection.getConnection();
@@ -46,6 +48,7 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 HttpSession sesion = request.getSession(true);
+
                 sesion.setAttribute("usuarioId", result.getInt("id"));
                 sesion.setAttribute("nombres", result.getString("nombres"));
                 sesion.setAttribute("apellidos", result.getString("apellidos"));
@@ -53,9 +56,17 @@ public class LoginServlet extends HttpServlet {
                 sesion.setAttribute("nombreUsuarioLogin", result.getString("nombre_usuario"));
                 sesion.setAttribute("correoUsuario", result.getString("correo"));
                 sesion.setAttribute("fechaNacimiento", result.getString("fecha_nacimiento"));
+                sesion.setAttribute("fotoPerfil", result.getString("foto_perfil"));
+
+                sesion.setAttribute("sitioWeb", result.getString("sitio_web"));
+                sesion.setAttribute("biografia", result.getString("biografia"));
+                sesion.setAttribute("talentos", result.getString("talentos"));
+                sesion.setAttribute("genero", result.getString("genero"));
+                sesion.setAttribute("intereses", result.getString("intereses"));
             }
 
             response.sendRedirect("dashboard.jsp");
+
         } catch (SQLException ex) {
             log("No se pudo iniciar sesión.", ex);
             response.sendRedirect("login.jsp?error=" + tipoError(ex));

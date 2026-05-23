@@ -6,6 +6,12 @@
     String nombres = (String) session.getAttribute("nombres");
     String apellidos = (String) session.getAttribute("apellidos");
     String fechaNacimiento = (String) session.getAttribute("fechaNacimiento");
+    String fotoPerfil = (String) session.getAttribute("fotoPerfil");
+    String sitioWeb = (String) session.getAttribute("sitioWeb");
+    String biografia = (String) session.getAttribute("biografia");
+    String talentos = (String) session.getAttribute("talentos");
+    String genero = (String) session.getAttribute("genero");
+    String intereses = (String) session.getAttribute("intereses");
 
     if (nombreUsuario == null || nombreUsuario.trim().isEmpty()) nombreUsuario = "Estudiante";
     if (usuarioLogin == null || usuarioLogin.trim().isEmpty()) usuarioLogin = "relax.user";
@@ -13,6 +19,12 @@
     if (nombres == null || nombres.trim().isEmpty()) nombres = nombreUsuario;
     if (apellidos == null) apellidos = "";
     if (fechaNacimiento == null) fechaNacimiento = "";
+    if (fotoPerfil == null) fotoPerfil = "";
+    if (sitioWeb == null) sitioWeb = "";
+    if (biografia == null || biografia.trim().isEmpty()) biografia = "Creciendo con propósito, bienestar y creatividad.";
+    if (talentos == null || talentos.trim().isEmpty()) talentos = "";
+    if (genero == null) genero = "";
+    if (intereses == null || intereses.trim().isEmpty()) intereses = "";
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -167,17 +179,6 @@
             font-weight: 700;
         }
 
-        .save-message {
-            display: none;
-            margin-top: 1rem;
-            background: rgba(42, 201, 230, 0.14);
-            color: var(--color-primario);
-            border: 1px solid rgba(42, 201, 230, 0.35);
-            border-radius: 8px;
-            padding: 0.85rem;
-            font-weight: 700;
-        }
-
         @media (max-width: 900px) {
             .edit-page,
             .edit-grid {
@@ -205,12 +206,31 @@
         <aside class="edit-side">
             <div class="photo-drop">
                 <div class="photo-preview">
-                    <img id="photoPreview" src="" alt="Vista previa">
-                    <span id="photoInitial"><%= nombreUsuario.substring(0, 1).toUpperCase() %></span>
+                    <img 
+                        id="photoPreview" 
+                        src="<%= fotoPerfil %>" 
+                        alt="Vista previa"
+                        style="<%= fotoPerfil.trim().isEmpty() ? "display:none;" : "display:block;" %>"
+                    >
+                    <span 
+                        id="photoInitial"
+                        style="<%= fotoPerfil.trim().isEmpty() ? "display:block;" : "display:none;" %>"
+                    >
+                        <%= nombreUsuario.substring(0, 1).toUpperCase() %>
+                    </span>
                 </div>
+
                 <p>Arrastra tu imagen de perfil o <label for="foto">sube una foto</label></p>
-                <input type="file" id="foto" accept="image/*">
+
+                <input 
+                    type="file" 
+                    id="foto" 
+                    name="foto" 
+                    accept="image/*" 
+                    form="profileForm"
+                >
             </div>
+
             <div style="margin-top:1.2rem;">
                 <h2 style="color:#ffffff; font-size:1.25rem; margin-bottom:.5rem;">Tu espacio</h2>
                 <p style="color:var(--color-texto-suave);">Actualiza lo que haces, lo que buscas y cómo quieres conectar con la comunidad.</p>
@@ -219,127 +239,91 @@
 
         <section class="edit-form-card">
             <h1>Tus datos</h1>
-            <form id="profileForm">
+
+            <form id="profileForm" action="ActualizarPerfilServlet" method="post" enctype="multipart/form-data">
                 <div class="edit-grid">
                     <div class="edit-field">
                         <label for="nombres">Nombres</label>
-                        <input type="text" id="nombres" value="<%= nombres %>" required>
+                        <input type="text" id="nombres" name="nombres" value="<%= nombres %>" required>
                     </div>
+
                     <div class="edit-field">
                         <label for="apellidos">Apellidos</label>
-                        <input type="text" id="apellidos" value="<%= apellidos %>">
+                        <input type="text" id="apellidos" name="apellidos" value="<%= apellidos %>">
                     </div>
+
                     <div class="edit-field">
                         <label for="usuario">Usuario</label>
-                        <input type="text" id="usuario" value="<%= usuarioLogin %>" required>
+                        <input type="text" id="usuario" name="usuario" value="<%= usuarioLogin %>" required>
                     </div>
+
                     <div class="edit-field">
                         <label for="correo">Email</label>
-                        <input type="email" id="correo" value="<%= correoUsuario %>">
+                        <input type="email" id="correo" name="correo" value="<%= correoUsuario %>" required>
                     </div>
+
                     <div class="edit-field full">
                         <label for="sitio">Sitio web personal</label>
-                        <input type="url" id="sitio" placeholder="https://miportafolio.com">
+                        <input type="url" id="sitio" name="sitio" value="<%= sitioWeb %>"placeholder="https://miportafolio.com">
                     </div>
+
                     <div class="edit-field full">
                         <label for="bio">Biografía</label>
-                        <textarea id="bio" placeholder="Cuéntanos qué estás creando, qué estás aprendiendo o qué buscas en la comunidad.">Creciendo con propósito, bienestar y creatividad.</textarea>
+                        <textarea id="bio" name="bio" placeholder="Cuéntanos qué estás creando, qué estás aprendiendo o qué buscas en la comunidad."><%= biografia %></textarea>
                     </div>
+
                     <div class="edit-field full">
                         <label for="talentos">Talentos</label>
-                        <input type="text" id="talentos" value="Escritura, Diseño, Escucha activa, Contenido creativo">
+                        <input type="text" id="talentos" name="talentos" value="<%= talentos %>"placeholder="Escritura, Diseño, Escucha activa, Contenido creativo">
                     </div>
+
                     <div class="edit-field">
                         <label for="genero">Género</label>
-                        <select id="genero">
-                            <option value="">Prefiero no decirlo</option>
-                            <option>Femenino</option>
-                            <option>Masculino</option>
-                            <option>Otro</option>
+                        <select id="genero" name="genero">
+                            <option value="" <%= genero.equals("") ? "selected" : "" %>>Prefiero no decirlo</option>
+                            <option value="Femenino" <%= genero.equals("Femenino") ? "selected" : "" %>>Femenino</option>
+                            <option value="Masculino" <%= genero.equals("Masculino") ? "selected" : "" %>>Masculino</option>
+                            <option value="Otro" <%= genero.equals("Otro") ? "selected" : "" %>>Otro</option>
                         </select>
                     </div>
+
                     <div class="edit-field">
                         <label for="fechaNacimiento">Cumpleaños</label>
-                        <input type="date" id="fechaNacimiento" value="<%= fechaNacimiento %>">
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" value="<%= fechaNacimiento %>" readonly>
                     </div>
+
                     <div class="edit-field full">
                         <label for="intereses">Intereses</label>
-                        <input type="text" id="intereses" value="Bienestar emocional, propósito, creatividad">
+                        <input type="text" id="intereses" name="intereses" value="<%= intereses %>"placeholder="Bienestar emocional, propósito, creatividad">
                     </div>
-                </div>
 
                 <div class="edit-actions">
                     <button type="submit" class="btn-primario">Guardar cambios</button>
                     <a href="perfil.jsp" class="btn-return">Regresar al perfil</a>
                 </div>
-                <div class="save-message" id="saveMessage">Cambios guardados. Puedes regresar al perfil para verlos.</div>
             </form>
         </section>
     </main>
 
     <script>
-        const form = document.getElementById("profileForm");
         const foto = document.getElementById("foto");
         const photoPreview = document.getElementById("photoPreview");
         const photoInitial = document.getElementById("photoInitial");
-        const saved = JSON.parse(localStorage.getItem("relaxzonePerfil") || "{}");
-        let photoData = saved.foto || "";
-
-        function setValue(id, value) {
-            if (value) document.getElementById(id).value = value;
-        }
-
-        setValue("nombres", saved.nombre);
-        setValue("apellidos", saved.apellidos);
-        setValue("usuario", saved.usuario);
-        setValue("correo", saved.correo);
-        setValue("sitio", saved.sitio);
-        setValue("bio", saved.bio);
-        setValue("talentos", saved.talentos);
-        setValue("genero", saved.genero);
-        setValue("fechaNacimiento", saved.fechaNacimiento);
-        setValue("intereses", saved.intereses);
-
-        if (photoData) {
-            photoPreview.src = photoData;
-            photoPreview.style.display = "block";
-            photoInitial.style.display = "none";
-        }
 
         foto.addEventListener("change", function () {
             const file = this.files[0];
             if (!file) return;
 
             const reader = new FileReader();
+
             reader.onload = function (event) {
-                photoData = event.target.result;
-                photoPreview.src = photoData;
+                photoPreview.src = event.target.result;
                 photoPreview.style.display = "block";
                 photoInitial.style.display = "none";
             };
+
             reader.readAsDataURL(file);
-        });
-
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const profile = {
-                nombre: document.getElementById("nombres").value.trim(),
-                apellidos: document.getElementById("apellidos").value.trim(),
-                usuario: document.getElementById("usuario").value.trim(),
-                correo: document.getElementById("correo").value.trim(),
-                sitio: document.getElementById("sitio").value.trim(),
-                bio: document.getElementById("bio").value.trim(),
-                talentos: document.getElementById("talentos").value.trim(),
-                genero: document.getElementById("genero").value,
-                fechaNacimiento: document.getElementById("fechaNacimiento").value,
-                intereses: document.getElementById("intereses").value.trim(),
-                foto: photoData
-            };
-
-            localStorage.setItem("relaxzonePerfil", JSON.stringify(profile));
-            document.getElementById("saveMessage").style.display = "block";
         });
     </script>
 </body>
-</html>
+</html>S

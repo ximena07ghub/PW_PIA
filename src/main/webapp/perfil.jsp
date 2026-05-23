@@ -6,6 +6,13 @@
     String nombres = (String) session.getAttribute("nombres");
     String apellidos = (String) session.getAttribute("apellidos");
     String fechaNacimiento = (String) session.getAttribute("fechaNacimiento");
+    String fotoPerfil = (String) session.getAttribute("fotoPerfil");
+
+    String sitioWeb = (String) session.getAttribute("sitioWeb");
+    String biografia = (String) session.getAttribute("biografia");
+    String talentos = (String) session.getAttribute("talentos");
+    String genero = (String) session.getAttribute("genero");
+    String intereses = (String) session.getAttribute("intereses");
 
     if (nombreUsuario == null || nombreUsuario.trim().isEmpty()) nombreUsuario = "Estudiante";
     if (usuarioLogin == null || usuarioLogin.trim().isEmpty()) usuarioLogin = "relax.user";
@@ -13,6 +20,16 @@
     if (nombres == null || nombres.trim().isEmpty()) nombres = nombreUsuario;
     if (apellidos == null) apellidos = "";
     if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) fechaNacimiento = "Sin registrar";
+    if (fotoPerfil == null) fotoPerfil = "";
+
+    if (sitioWeb == null || sitioWeb.trim().isEmpty()) sitioWeb = "Sin registrar";
+    if (biografia == null || biografia.trim().isEmpty()) biografia = "Creciendo con propósito, bienestar y creatividad.";
+    if (talentos == null || talentos.trim().isEmpty()) talentos = "Sin registrar";
+    if (genero == null || genero.trim().isEmpty()) genero = "Prefiero no decirlo";
+    if (intereses == null || intereses.trim().isEmpty()) intereses = "Sin registrar";
+
+    boolean tieneFoto = !fotoPerfil.trim().isEmpty();
+    boolean tieneSitio = !sitioWeb.equals("Sin registrar");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,7 +75,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
         }
 
         .profile-title h1 {
@@ -151,8 +167,10 @@
             font-weight: 700;
         }
 
-        .info-row strong {
+        .info-row strong,
+        .info-row a {
             color: var(--color-texto);
+            overflow-wrap: anywhere;
         }
 
         .course-progress {
@@ -241,17 +259,32 @@
     <main class="profile-page">
         <section class="profile-hero">
             <div class="profile-avatar">
-                <img id="profilePhoto" src="" alt="Foto de perfil">
-                <span id="profileInitial"><%= nombreUsuario.substring(0, 1).toUpperCase() %></span>
+                <img 
+                    id="profilePhoto" 
+                    src="<%= fotoPerfil %>" 
+                    alt="Foto de perfil"
+                    style="<%= tieneFoto ? "display:block;" : "display:none;" %>"
+                >
+                <span 
+                    id="profileInitial"
+                    style="<%= tieneFoto ? "display:none;" : "display:block;" %>"
+                >
+                    <%= nombreUsuario.substring(0, 1).toUpperCase() %>
+                </span>
             </div>
+
             <div class="profile-title">
-                <h1 id="displayName"><%= nombreUsuario %></h1>
-                <p>@<span id="displayUser"><%= usuarioLogin %></span> · <span id="displayBio">Creciendo con propósito, bienestar y creatividad.</span></p>
+                <h1 id="displayName"><%= nombres %> <%= apellidos %></h1>
+                <p>
+                    @<span id="displayUser"><%= usuarioLogin %></span> · 
+                    <span id="displayBio"><%= biografia %></span>
+                </p>
                 <div class="profile-actions">
                     <a href="editarPerfil.jsp" class="btn-primario">Editar perfil</a>
                     <a href="dashboard.jsp" class="btn-soft">Volver a mis cursos</a>
                 </div>
             </div>
+
             <div class="profile-stats">
                 <div class="profile-stat"><strong>3</strong><span>en progreso</span></div>
                 <div class="profile-stat"><strong>12</strong><span>recomendados</span></div>
@@ -262,10 +295,47 @@
         <section class="profile-grid">
             <div class="profile-panel">
                 <h2>Información personal</h2>
-                <div class="info-row"><span>Nombre</span><strong id="infoName"><%= nombres %> <%= apellidos %></strong></div>
-                <div class="info-row"><span>Correo</span><strong id="infoEmail"><%= correoUsuario %></strong></div>
-                <div class="info-row"><span>Fecha de nacimiento</span><strong id="infoBirth"><%= fechaNacimiento %></strong></div>
-                <div class="info-row"><span>Intereses</span><strong id="infoInterests">Bienestar emocional, propósito, creatividad</strong></div>
+
+                <div class="info-row">
+                    <span>Nombre</span>
+                    <strong id="infoName"><%= nombres %> <%= apellidos %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Correo</span>
+                    <strong id="infoEmail"><%= correoUsuario %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Fecha de nacimiento</span>
+                    <strong id="infoBirth"><%= fechaNacimiento %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Género</span>
+                    <strong><%= genero %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Sitio web</span>
+                    <strong>
+                        <% if (tieneSitio) { %>
+                            <a href="<%= sitioWeb %>" target="_blank" rel="noopener noreferrer"><%= sitioWeb %></a>
+                        <% } else { %>
+                            Sin registrar
+                        <% } %>
+                    </strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Intereses</span>
+                    <strong id="infoInterests"><%= intereses %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Biografía</span>
+                    <strong><%= biografia %></strong>
+                </div>
             </div>
 
             <div class="profile-panel">
@@ -289,10 +359,22 @@
             <div class="profile-panel">
                 <h2>Talentos</h2>
                 <div class="badge-list" id="talentList">
-                    <span>Escritura</span>
-                    <span>Diseño</span>
-                    <span>Escucha activa</span>
-                    <span>Contenido creativo</span>
+                    <%
+                        if (!talentos.equals("Sin registrar")) {
+                            String[] listaTalentos = talentos.split(",");
+                            for (String talento : listaTalentos) {
+                                if (!talento.trim().isEmpty()) {
+                    %>
+                                    <span><%= talento.trim() %></span>
+                    <%
+                                }
+                            }
+                        } else {
+                    %>
+                            <span>Sin registrar</span>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
 
@@ -304,49 +386,5 @@
             </div>
         </section>
     </main>
-
-    <script>
-        const savedProfile = JSON.parse(localStorage.getItem("relaxzonePerfil") || "{}");
-
-        if (savedProfile.nombre) {
-            document.getElementById("displayName").textContent = savedProfile.nombre + (savedProfile.apellidos ? " " + savedProfile.apellidos : "");
-            document.getElementById("infoName").textContent = document.getElementById("displayName").textContent;
-            document.getElementById("profileInitial").textContent = savedProfile.nombre.charAt(0).toUpperCase();
-        }
-
-        if (savedProfile.usuario) {
-            document.getElementById("displayUser").textContent = savedProfile.usuario;
-        }
-
-        if (savedProfile.correo) {
-            document.getElementById("infoEmail").textContent = savedProfile.correo;
-        }
-
-        if (savedProfile.fechaNacimiento) {
-            document.getElementById("infoBirth").textContent = savedProfile.fechaNacimiento;
-        }
-
-        if (savedProfile.bio) {
-            document.getElementById("displayBio").textContent = savedProfile.bio;
-        }
-
-        if (savedProfile.intereses) {
-            document.getElementById("infoInterests").textContent = savedProfile.intereses;
-        }
-
-        if (savedProfile.talentos) {
-            document.getElementById("talentList").innerHTML = savedProfile.talentos
-                .split(",")
-                .map(function (talento) { return "<span>" + talento.trim() + "</span>"; })
-                .join("");
-        }
-
-        if (savedProfile.foto) {
-            const photo = document.getElementById("profilePhoto");
-            photo.src = savedProfile.foto;
-            photo.style.display = "block";
-            document.getElementById("profileInitial").style.display = "none";
-        }
-    </script>
 </body>
 </html>
