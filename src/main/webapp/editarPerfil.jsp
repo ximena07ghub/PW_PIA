@@ -21,7 +21,7 @@
     if (fechaNacimiento == null) fechaNacimiento = "";
     if (fotoPerfil == null) fotoPerfil = "";
     if (sitioWeb == null) sitioWeb = "";
-    if (biografia == null || biografia.trim().isEmpty()) biografia = "Creciendo con propósito, bienestar y creatividad.";
+    if (biografia == null || biografia.trim().isEmpty()) biografia = "Creciendo con prop&oacute;sito, bienestar y creatividad.";
     if (talentos == null || talentos.trim().isEmpty()) talentos = "";
     if (genero == null) genero = "";
     if (intereses == null || intereses.trim().isEmpty()) intereses = "";
@@ -32,7 +32,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar perfil - Relax Zone</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=4">
     <style>
         .edit-page {
             max-width: 1180px;
@@ -149,6 +149,27 @@
             resize: vertical;
         }
 
+        .edit-field select {
+            appearance: none;
+            color-scheme: dark;
+            cursor: pointer;
+            padding-right: 2.6rem;
+            background-color: rgba(255,255,255,0.08);
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--color-primario) 50%),
+                linear-gradient(135deg, var(--color-primario) 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) 50%,
+                calc(100% - 14px) 50%;
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .edit-field select option {
+            background: var(--color-fondo-card);
+            color: #ffffff;
+        }
+
         .edit-field input:focus,
         .edit-field select:focus,
         .edit-field textarea:focus {
@@ -206,13 +227,14 @@
         <aside class="edit-side">
             <div class="photo-drop">
                 <div class="photo-preview">
-                    <img 
-                        id="photoPreview" 
-                        src="<%= fotoPerfil %>" 
+                    <img
+                        id="photoPreview"
+                        src="<%= fotoPerfil %>"
                         alt="Vista previa"
+                        onerror="this.style.display='none'; document.getElementById('photoInitial').style.display='block';"
                         style="<%= fotoPerfil.trim().isEmpty() ? "display:none;" : "display:block;" %>"
                     >
-                    <span 
+                    <span
                         id="photoInitial"
                         style="<%= fotoPerfil.trim().isEmpty() ? "display:block;" : "display:none;" %>"
                     >
@@ -222,18 +244,18 @@
 
                 <p>Arrastra tu imagen de perfil o <label for="foto">sube una foto</label></p>
 
-                <input 
-                    type="file" 
-                    id="foto" 
-                    name="foto" 
-                    accept="image/*" 
+                <input
+                    type="file"
+                    id="foto"
+                    name="foto"
+                    accept="image/*"
                     form="profileForm"
                 >
             </div>
 
             <div style="margin-top:1.2rem;">
                 <h2 style="color:#ffffff; font-size:1.25rem; margin-bottom:.5rem;">Tu espacio</h2>
-                <p style="color:var(--color-texto-suave);">Actualiza lo que haces, lo que buscas y cómo quieres conectar con la comunidad.</p>
+                <p style="color:var(--color-texto-suave);">Actualiza lo que haces, lo que buscas y c&oacute;mo quieres conectar con la comunidad.</p>
             </div>
         </aside>
 
@@ -264,21 +286,21 @@
 
                     <div class="edit-field full">
                         <label for="sitio">Sitio web personal</label>
-                        <input type="url" id="sitio" name="sitio" value="<%= sitioWeb %>"placeholder="https://miportafolio.com">
+                        <input type="url" id="sitio" name="sitio" value="<%= sitioWeb %>" placeholder="https://miportafolio.com">
                     </div>
 
                     <div class="edit-field full">
-                        <label for="bio">Biografía</label>
-                        <textarea id="bio" name="bio" placeholder="Cuéntanos qué estás creando, qué estás aprendiendo o qué buscas en la comunidad."><%= biografia %></textarea>
+                        <label for="bio">Biograf&iacute;a</label>
+                        <textarea id="bio" name="bio" placeholder="Cu&eacute;ntanos qu&eacute; est&aacute;s creando, qu&eacute; est&aacute;s aprendiendo o qu&eacute; buscas en la comunidad."><%= biografia %></textarea>
                     </div>
 
                     <div class="edit-field full">
                         <label for="talentos">Talentos</label>
-                        <input type="text" id="talentos" name="talentos" value="<%= talentos %>"placeholder="Escritura, Diseño, Escucha activa, Contenido creativo">
+                        <input type="text" id="talentos" name="talentos" value="<%= talentos %>" placeholder="Escritura, Dise&ntilde;o, Escucha activa, Contenido creativo">
                     </div>
 
                     <div class="edit-field">
-                        <label for="genero">Género</label>
+                        <label for="genero">G&eacute;nero</label>
                         <select id="genero" name="genero">
                             <option value="" <%= genero.equals("") ? "selected" : "" %>>Prefiero no decirlo</option>
                             <option value="Femenino" <%= genero.equals("Femenino") ? "selected" : "" %>>Femenino</option>
@@ -288,14 +310,16 @@
                     </div>
 
                     <div class="edit-field">
-                        <label for="fechaNacimiento">Cumpleaños</label>
+                        <label for="fechaNacimiento">Cumplea&ntilde;os</label>
                         <input type="date" id="fechaNacimiento" name="fechaNacimiento" value="<%= fechaNacimiento %>" readonly>
                     </div>
 
                     <div class="edit-field full">
                         <label for="intereses">Intereses</label>
-                        <input type="text" id="intereses" name="intereses" value="<%= intereses %>"placeholder="Bienestar emocional, propósito, creatividad">
+                        <input type="text" id="intereses" name="intereses" value="<%= intereses %>" placeholder="Bienestar emocional, prop&oacute;sito, creatividad">
                     </div>
+
+                </div>
 
                 <div class="edit-actions">
                     <button type="submit" class="btn-primario">Guardar cambios</button>
@@ -326,4 +350,4 @@
         });
     </script>
 </body>
-</html>S
+</html>

@@ -8,8 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorías - Relax Zone</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Categor&iacute;as - Relax Zone</title>
+    <link rel="stylesheet" href="css/styles.css?v=4">
     <style>
         .catalog-shell {
             max-width: 1220px;
@@ -101,11 +101,24 @@
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 8px 22px rgba(2, 61, 85, 0.08);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
         }
 
         .catalog-chip.activo {
             background: var(--color-primario);
             color: #062230;
+        }
+
+        .catalog-chip span {
+            min-width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            display: inline-grid;
+            place-items: center;
+            background: rgba(2, 61, 85, 0.1);
+            font-size: 0.76rem;
         }
 
         .catalog-grid {
@@ -121,16 +134,20 @@
             text-decoration: none;
             color: #ffffff;
             box-shadow: 0 18px 38px rgba(2, 61, 85, 0.16);
-            transition: transform 0.25s ease;
+            border: 1px solid rgba(112, 149, 170, 0.65);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         }
 
         .catalog-card:hover {
             transform: translateY(-6px);
+            border-color: var(--color-primario);
+            box-shadow: 0 24px 52px rgba(2, 61, 85, 0.22);
         }
 
         .catalog-image {
-            height: 190px;
+            height: 250px;
             position: relative;
+            background: #023d55;
         }
 
         .catalog-image img {
@@ -143,7 +160,7 @@
             padding: 1.15rem;
         }
 
-        .catalog-card-body span {
+        .catalog-card-body > span {
             display: inline-block;
             color: var(--color-primario);
             background: rgba(42, 201, 230, 0.12);
@@ -156,14 +173,30 @@
 
         .catalog-card-body h2 {
             color: #ffffff;
-            font-size: 1.18rem;
+            font-size: 1.32rem;
             line-height: 1.25;
             margin-bottom: 0.5rem;
         }
 
         .catalog-card-body p {
             color: var(--color-texto-suave);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        .catalog-card-body .course-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            margin-top: 1rem;
+        }
+
+        .catalog-card-body .course-meta span {
+            color: #062230;
+            background: rgba(42, 201, 230, 0.9);
+            border-radius: 999px;
+            padding: 0.25rem 0.55rem;
         }
 
         .empty-message {
@@ -187,6 +220,24 @@
                 padding: 1rem;
             }
 
+            .catalog-hero {
+                padding: 1.35rem;
+            }
+
+            .catalog-filters {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 0.25rem;
+            }
+
+            .catalog-chip {
+                white-space: nowrap;
+            }
+
+            .catalog-image {
+                height: 215px;
+            }
+
             .contenedor-nav {
                 flex-wrap: wrap;
             }
@@ -204,7 +255,7 @@
                     <a href="perfil.jsp" class="link-secundario">Perfil</a>
                 <% } else { %>
                     <a href="login.jsp" class="link-secundario">Entrar</a>
-                    <a href="registro.jsp" class="btn-primario">Regístrate</a>
+                    <a href="registro.jsp" class="btn-primario">Reg&iacute;strate</a>
                 <% } %>
             </div>
         </div>
@@ -213,117 +264,38 @@
     <main class="catalog-shell">
         <section class="catalog-hero">
             <div>
-                <h1>Explora por categorías</h1>
-                <p>Encuentra cursos según lo que hoy necesitas trabajar: bienestar emocional, propósito, creatividad o rutas híbridas para transformar talento en impacto.</p>
+                <h1>Explora por categor&iacute;as</h1>
+                <p>Encuentra cursos seg&uacute;n lo que hoy necesitas trabajar: bienestar emocional, prop&oacute;sito, creatividad o rutas h&iacute;bridas para transformar talento en impacto.</p>
             </div>
             <div class="catalog-summary">
                 <div class="summary-card"><strong>12</strong><span>cursos listos</span></div>
-                <div class="summary-card"><strong>4</strong><span>categorías principales</span></div>
+                <div class="summary-card"><strong>4</strong><span>categor&iacute;as principales</span></div>
                 <div class="summary-card"><strong>0$</strong><span>acceso gratuito</span></div>
             </div>
         </section>
 
         <section class="catalog-tools">
             <div class="catalog-search">
-                <input id="catalogSearch" type="text" placeholder="Busca por autoestima, ansiedad, propósito, redes, talento...">
+                <input id="catalogSearch" type="text" placeholder="Busca por autoestima, ansiedad, prop&oacute;sito, redes, talento...">
             </div>
             <div class="catalog-filters">
                 <button class="catalog-chip activo" type="button" data-filter="todas">Todas</button>
                 <button class="catalog-chip" type="button" data-filter="bienestar">Bienestar</button>
-                <button class="catalog-chip" type="button" data-filter="espiritualidad">Propósito</button>
+                <button class="catalog-chip" type="button" data-filter="espiritualidad">Prop&oacute;sito</button>
                 <button class="catalog-chip" type="button" data-filter="creatividad">Creatividad</button>
-                <button class="catalog-chip" type="button" data-filter="hibrido">Híbridos</button>
+                <button class="catalog-chip" type="button" data-filter="hibrido">H&iacute;bridos</button>
             </div>
         </section>
 
-        <section class="catalog-grid" id="catalogGrid">
-            <a class="catalog-card" href="curso_detalle1.jsp?id=1" data-category="bienestar" data-keywords="emociones bienestar expresar regular">
-                <div class="catalog-image"><img src="img/diez.jpg" alt="Gestión de emociones"></div>
-                <div class="catalog-card-body"><span>Bienestar</span><h2>Gestión de emociones desde cero</h2><p>Aprende a identificar y expresar emociones sin reprimirlas.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=2" data-category="bienestar" data-keywords="autoestima seguridad comparacion amor propio">
-                <div class="catalog-image"><img src="img/uno.jpg" alt="Sanando mi autoestima"></div>
-                <div class="catalog-card-body"><span>Bienestar</span><h2>Sanando mi autoestima</h2><p>Reconstruye seguridad y valor personal con ejercicios guiados.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=3" data-category="bienestar" data-keywords="ansiedad sobrepensamiento calma mente">
-                <div class="catalog-image"><img src="img/seis.jpg" alt="Ansiedad y sobrepensamiento"></div>
-                <div class="catalog-card-body"><span>Bienestar</span><h2>Ansiedad y sobrepensamiento</h2><p>Herramientas para calmar la mente y volver al presente.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=4" data-category="espiritualidad" data-keywords="proposito identidad sentido vida">
-                <div class="catalog-image"><img src="img/dos.jpg" alt="Descubriendo mi propósito"></div>
-                <div class="catalog-card-body"><span>Propósito</span><h2>Descubriendo mi propósito</h2><p>Conecta tus valores, dones y dirección personal.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=5" data-category="espiritualidad" data-keywords="fe confianza resiliencia esperanza">
-                <div class="catalog-image"><img src="img/siete.jpg" alt="Fe en tiempos difíciles"></div>
-                <div class="catalog-card-body"><span>Propósito</span><h2>Fe en tiempos difíciles</h2><p>Reflexiones y prácticas para sostener confianza.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=6" data-category="espiritualidad" data-keywords="sanidad interior perdon heridas pasado">
-                <div class="catalog-image"><img src="img/tres.jpg" alt="Sanidad interior"></div>
-                <div class="catalog-card-body"><span>Propósito</span><h2>Sanidad interior</h2><p>Procesos de perdón, límites y cuidado interno.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=7" data-category="creatividad" data-keywords="talento creatividad dones habilidades">
-                <div class="catalog-image"><img src="img/cinco.jpg" alt="Descubre tu talento"></div>
-                <div class="catalog-card-body"><span>Creatividad</span><h2>Descubre tu talento</h2><p>Explora habilidades y crea sin esperar perfección.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=8" data-category="creatividad" data-keywords="redes contenido marca personal">
-                <div class="catalog-image"><img src="img/ocho.jpg" alt="Crecer en redes"></div>
-                <div class="catalog-card-body"><span>Creatividad</span><h2>Crecer en redes siendo creativo</h2><p>Contenido, marca personal y presencia auténtica.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=9" data-category="creatividad" data-keywords="comunidad colaborar networking proyectos">
-                <div class="catalog-image"><img src="img/cuatro.jpg" alt="Colaborar en comunidad"></div>
-                <div class="catalog-card-body"><span>Creatividad</span><h2>Colaborar y crear en comunidad</h2><p>Aprende a trabajar en equipo y conectar talentos.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=10" data-category="hibrido" data-keywords="crea proposito talento impacto">
-                <div class="catalog-image"><img src="img/imagen2.png" alt="Crea con propósito"></div>
-                <div class="catalog-card-body"><span>Híbrido</span><h2>Crea con propósito</h2><p>Une talento, espiritualidad e impacto personal.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=11" data-category="hibrido" data-keywords="talento ingreso oferta clientes">
-                <div class="catalog-image"><img src="img/nueve.jpg" alt="De talento a ingreso"></div>
-                <div class="catalog-card-body"><span>Híbrido</span><h2>De talento a ingreso</h2><p>Diseña una primera oferta honesta y útil.</p></div>
-            </a>
-            <a class="catalog-card" href="curso_detalle1.jsp?id=12" data-category="hibrido" data-keywords="vida sentido habitos direccion">
-                <div class="catalog-image"><img src="img/imagen1.png" alt="Vida con sentido"></div>
-                <div class="catalog-card-body"><span>Híbrido</span><h2>Construyendo una vida con sentido</h2><p>Hábitos, prioridades y plan personal de 90 días.</p></div>
-            </a>
-        </section>
+        <section class="catalog-grid" id="catalogGrid"></section>
         <p class="empty-message" id="catalogEmpty">No encontramos cursos con esos filtros.</p>
     </main>
 
+    <script src="js/courses-data.js?v=2"></script>
+    <script src="js/courses-pages.js?v=4"></script>
+    <script>window.RelaxZoneLoggedIn = <%= sesionActiva ? "true" : "false" %>;</script>
     <script>
-        const catalogSearch = document.getElementById("catalogSearch");
-        const catalogCards = document.querySelectorAll(".catalog-card");
-        const chips = document.querySelectorAll(".catalog-chip");
-        const empty = document.getElementById("catalogEmpty");
-        let active = "todas";
-
-        function normalize(text) {
-            return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        }
-
-        function filterCatalog() {
-            const term = normalize(catalogSearch.value.trim());
-            let count = 0;
-
-            catalogCards.forEach(function (card) {
-                const categoryMatch = active === "todas" || card.dataset.category === active;
-                const textMatch = term === "" || normalize(card.textContent + " " + card.dataset.keywords).includes(term);
-                const show = categoryMatch && textMatch;
-                card.style.display = show ? "" : "none";
-                if (show) count += 1;
-            });
-
-            empty.style.display = count === 0 ? "block" : "none";
-        }
-
-        catalogSearch.addEventListener("input", filterCatalog);
-        chips.forEach(function (chip) {
-            chip.addEventListener("click", function () {
-                chips.forEach(function (item) { item.classList.remove("activo"); });
-                chip.classList.add("activo");
-                active = chip.dataset.filter;
-                filterCatalog();
-            });
-        });
+        RelaxZoneCoursesPages.initCatalog();
     </script>
 </body>
 </html>

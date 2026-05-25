@@ -49,7 +49,7 @@ public class PublicarComunidadServlet extends HttpServlet {
 
             String sqlTalento = "INSERT INTO comunidad_talentos (usuario_id, talento, busca) "
                     + "SELECT id, talentos, intereses FROM usuarios WHERE id = ? "
-                    + "ON DUPLICATE KEY UPDATE usuario_id = usuario_id";
+                    + "ON DUPLICATE KEY UPDATE talento = VALUES(talento), busca = VALUES(busca)";
 
             PreparedStatement psTalento = con.prepareStatement(sqlTalento);
             psTalento.setInt(1, usuarioId);

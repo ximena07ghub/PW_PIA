@@ -21,17 +21,44 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace(/[\u0300-\u036f]/g, "");
     }
 
-    function applyFilters() {
-        if (!cards.length) return;
+    // Une palabras parecidas para que la busqueda no sea literal.
+    function relatedTerms(term) {
+        const normalized = normalize(term);
+        const groups = [
+            ["ansiedad", "estres", "calma", "respiracion", "mindfulness", "sobrepensamiento"],
+            ["autoestima", "seguridad", "comparacion", "valor", "autocompasion"],
+            ["proposito", "sentido", "identidad", "dones", "servicio", "fe", "espiritualidad"],
+            ["creatividad", "talento", "arte", "contenido", "redes", "marca", "proyecto"],
+            ["comunidad", "colaboracion", "equipo", "feedback", "co-creacion"],
+            ["dinero", "monetizacion", "precio", "oferta", "clientes", "emprendimiento"]
+        ];
+        const terms = normalized.split(/\s+/).filter(Boolean);
 
-        const term = normalize(searchInput ? searchInput.value.trim() : "");
-        const isFiltering = term.length > 0 || activeFilter !== "todas";
+        groups.forEach(function (group) {
+            if (group.some(function (word) { return terms.indexOf(word) >= 0 || normalized.indexOf(word) >= 0; })) {
+                group.forEach(function (word) {
+                    if (terms.indexOf(word) < 0) terms.push(word);
+                });
+            }
+        });
+
+        return terms;
+    }
+
+    function applyFilters() {
+        const currentCards = document.querySelectorAll(".home-course-card");
+        if (!currentCards.length) return;
+
+        const terms = relatedTerms(searchInput ? searchInput.value.trim() : "");
+        const isFiltering = terms.length > 0 || activeFilter !== "todas";
         let visibleCount = 0;
 
-        cards.forEach(function (card) {
+        currentCards.forEach(function (card) {
             const categoryMatch = activeFilter === "todas" || card.dataset.category === activeFilter;
             const text = normalize(card.textContent + " " + (card.dataset.keywords || ""));
-            const textMatch = term === "" || text.includes(term);
+            const textMatch = terms.length === 0 || terms.some(function (term) {
+                return text.indexOf(term) >= 0;
+            });
             const show = categoryMatch && textMatch;
 
             card.style.display = show ? "" : "none";

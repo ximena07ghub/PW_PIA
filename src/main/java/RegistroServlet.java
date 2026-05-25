@@ -27,10 +27,22 @@ public class RegistroServlet extends HttpServlet {
         String correo = clean(request.getParameter("correo")).toLowerCase();
         String nombreUsuario = clean(request.getParameter("nombreUsuario"));
         String password = clean(request.getParameter("password"));
+        String confirmPassword = clean(request.getParameter("confirmPassword"));
 
         if (nombres.isEmpty() || apellidos.isEmpty() || fechaNacimiento.isEmpty()
-                || correo.isEmpty() || nombreUsuario.isEmpty() || password.isEmpty()) {
+                || correo.isEmpty() || nombreUsuario.isEmpty() || password.isEmpty()
+                || confirmPassword.isEmpty()) {
             response.sendRedirect("registro.jsp?error=campos");
+            return;
+        }
+
+        if (!passwordCumpleReglas(password)) {
+            response.sendRedirect("registro.jsp?error=password");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            response.sendRedirect("registro.jsp?error=confirmar");
             return;
         }
 
@@ -76,6 +88,27 @@ public class RegistroServlet extends HttpServlet {
 
     private String clean(String value) {
         return value == null ? "" : value.trim();
+    }
+
+    private boolean passwordCumpleReglas(String password) {
+        boolean tieneMayuscula = false;
+        boolean tieneMinuscula = false;
+        boolean tieneNumero = false;
+        boolean tieneSimbolo = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char actual = password.charAt(i);
+            tieneMayuscula = tieneMayuscula || Character.isUpperCase(actual);
+            tieneMinuscula = tieneMinuscula || Character.isLowerCase(actual);
+            tieneNumero = tieneNumero || Character.isDigit(actual);
+            tieneSimbolo = tieneSimbolo || !Character.isLetterOrDigit(actual);
+        }
+
+        return password.length() >= 8
+                && tieneMayuscula
+                && tieneMinuscula
+                && tieneNumero
+                && tieneSimbolo;
     }
 
     private String tipoError(SQLException ex) {

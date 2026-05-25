@@ -4,25 +4,31 @@
    1. Variables y Reset Pro (Estilo Dark)
    ========================================= */
 :root {
+    /* Guia rapida de colores:
+       fondo = color claro de toda la pagina;
+       fondo-nav/card = azul oscuro de barra, footer y tarjetas;
+       primario = botones, acentos y barras de progreso;
+       texto = titulos; texto-suave = texto sobre fondos oscuros;
+       borde = lineas y contornos. */
     --color-fondo: #ecffff;      /* Azul muy oscuro  */
     --color-fondo-nav: #023d55; /* Un tono más claro para el nav */
     --color-fondo-card: #023d55; /* Fondo de tarjetas */
-    
+
     --color-primario: #2ac9e6;   /* Verde neón brillante */
     --color-primario-hover: #7399aa;
-    
+
     --color-texto: #14336d;
     --color-texto-suave: #e2eef3;
     --color-borde: #7095aa;
-    
+
     /* Variables para el Carrusel */
     --ancho-tarjeta: 300px;
     --gap-tarjeta: 10px;
     --numero-tarjetas-unicas: 9; /* Ajusta esto si añades más cursos */
-    
+
     /* Calculamos el ancho total de UN bloque de tarjetas */
     --ancho-bloque: calc((var(--ancho-tarjeta) + var(--gap-tarjeta)) * var(--numero-tarjetas-unicas));
-    
+
     --fuente-principal: 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
@@ -174,6 +180,47 @@ body {
 }
 .btn-primario:hover { background-color: var(--color-primario-hover); }
 
+img,
+video {
+    max-width: 100%;
+}
+
+@media (max-width: 760px) {
+    .navbar {
+        padding: 0.65rem 0;
+    }
+
+    .contenedor-nav {
+        padding: 0 1rem;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 1.15rem;
+    }
+
+    .busqueda-nav {
+        order: 3;
+        width: 100%;
+        max-width: none;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 0.85rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.15rem;
+    }
+
+    .nav-links a,
+    .nav-links span {
+        font-size: 0.82rem;
+    }
+}
+
 
 /* =========================================
    3. HERO BANNER (2 Columnas)
@@ -193,23 +240,23 @@ body {
     max-width: 600px;
 }
 
-.hero-texto h1 { 
-    font-size: 3.5rem; 
-    font-weight: 700; 
-    line-height: 1.1; 
-    margin-bottom: 1.5rem; 
+.hero-texto h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
     color: var(--color-texto);
 }
 
-.hero-texto h1 span { 
-    color: var(--color-primario); 
+.hero-texto h1 span {
+    color: var(--color-primario);
 }
 
-.hero-texto p { 
-    color: #344a6b; 
-    font-size: 1.15rem; 
+.hero-texto p {
+    color: #344a6b;
+    font-size: 1.15rem;
     line-height: 1.6;
-    margin-bottom: 2.5rem; 
+    margin-bottom: 2.5rem;
 }
 
 /* Botones del Hero */
@@ -232,6 +279,32 @@ body {
 .btn-secundario:hover {
     border-color: var(--color-primario);
     color: var(--color-primario);
+}
+
+/* Acciones dentro de cursos agregados al dashboard */
+.progress-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.progress-actions a,
+.progress-actions button {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 0.35rem 0.6rem;
+    font-family: var(--fuente-principal);
+    font-weight: 800;
+    font-size: 0.78rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.progress-actions button {
+    color: #ffd6d6;
 }
 
 /* Columna Derecha: Imagen Vectorial */
@@ -274,7 +347,7 @@ body {
    ========================================= */
 .sobre-nosotros-editorial {
     width: 100%;
-    /* Quitamos el justify-center para que tome todo el ancho si es necesario, 
+    /* Quitamos el justify-center para que tome todo el ancho si es necesario,
        el centrado lo controlamos por dentro */
     padding: 4rem 2rem; /* Más espacio vertical (como en tus referencias) */
     margin-bottom: 4rem;
@@ -372,7 +445,7 @@ body {
     display: flex; /* Tarjetas en fila */
     gap: var(--gap-tarjeta);
     width: calc(var(--ancho-bloque) * 2); /* Ancho total de los dos bloques */
-    
+
     /* APLICAMOS LA ANIMACIÓN */
     animation: moverCarrusel 45s linear infinite;
 }
@@ -507,7 +580,7 @@ body {
     padding: 1.5rem;
     border: 1px solid var(--color-borde);
     /* Manteniendo el estilo cuadrado editorial */
-    border-radius: 0; 
+    border-radius: 0;
 }
 
 .curso-item h4 {
@@ -656,22 +729,38 @@ body {
 }
 
 .footer-pro {
-    background-color: var(--color-fondo-nav);
-    padding: 4rem 2rem 1rem 2rem;
+    background:
+        linear-gradient(180deg, rgba(42, 201, 230, 0.08), rgba(2, 61, 85, 0) 45%),
+        var(--color-fondo-nav);
+    padding: 3.5rem 2rem 1.2rem;
+    border-top: 1px solid var(--color-borde);
 }
 
 .footer-grid {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    grid-template-columns: minmax(260px, 1.35fr) repeat(3, minmax(150px, 0.7fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-col:first-child {
+    max-width: 360px;
+}
+
+.footer-col strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
 }
 
 .footer-col h4 {
     color: var(--color-primario);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.9rem;
     font-size: 1.1rem;
 }
 
@@ -685,12 +774,17 @@ body {
 }
 
 .footer-col a:hover {
-    color: var(--color-texto);
+    color: var(--color-primario);
 }
 
 .footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.2rem;
     border-top: 1px solid var(--color-borde);
     color: var(--color-texto-suave);
     font-size: 0.8rem;
@@ -699,6 +793,12 @@ body {
 @media (max-width: 768px) {
     .footer-grid {
         grid-template-columns: 1fr;
+        gap: 1.4rem;
+    }
+
+    .footer-bottom {
+        justify-content: center;
+        text-align: center;
     }
 }
 
@@ -737,7 +837,7 @@ body {
     display: flex;
     width: 100%;
     /* Altura fija aproximada para evitar scroll en registro */
-    min-height: 550px; 
+    min-height: 550px;
     background-color: var(--color-fondo-nav); /* Fondo oscuro para contraste */
     border-radius: 12px;
     border: 1px solid var(--color-borde);

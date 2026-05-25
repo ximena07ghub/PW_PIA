@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regístrate - Relax Zone</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Reg&iacute;strate - Relax Zone</title>
+    <link rel="stylesheet" href="css/styles.css?v=4">
     <style>
         .registro-page {
             min-height: 100vh;
@@ -139,6 +139,7 @@
             font-family: var(--fuente-principal);
             outline: none;
             width: 100%;
+            min-height: 46px;
         }
 
         .registro-field input:focus {
@@ -148,6 +149,27 @@
         .registro-field input[type="file"] {
             padding: 0.65rem;
             color: var(--color-texto-suave);
+        }
+
+        .registro-field input::placeholder {
+            color: rgba(226, 238, 243, 0.52);
+        }
+
+        .password-help {
+            min-height: 2rem;
+            color: rgba(226, 238, 243, 0.62);
+            font-size: 0.72rem;
+            line-height: 1.35;
+            transition: color 0.2s ease;
+            max-width: 100%;
+        }
+
+        .password-help.is-warning {
+            color: #ffd6a1;
+        }
+
+        .password-help.is-ok {
+            color: #9ff3ff;
         }
 
         .registro-submit {
@@ -205,18 +227,18 @@
         <section class="registro-card">
             <aside class="registro-info">
                 <div>
-                    <h1>Únete a la comunidad</h1>
-                    <p>Un espacio donde se conectan talentos, se crean proyectos y se recibe guía creativa y espiritual.</p>
+                    <h1>&Uacute;nete a la comunidad</h1>
+                    <p>Un espacio donde se conectan talentos, se crean proyectos y se recibe gu&iacute;a creativa y espiritual.</p>
 
                     <div class="registro-beneficios">
-                        <span>✓ Apoyo emocional + creativo</span>
-                        <span>✓ Crecimiento integral, tú eres el diferencial</span>
-                        <span>✓ Red de apoyo real</span>
+                        <span>&#10003; Apoyo emocional + creativo</span>
+                        <span>&#10003; Crecimiento integral, t&uacute; eres el diferencial</span>
+                        <span>&#10003; Red de apoyo real</span>
                     </div>
                 </div>
 
                 <div class="registro-redes">
-                    <small>Síguenos en nuestras redes:</small>
+                    <small>S&iacute;guenos en nuestras redes:</small>
                     <div class="registro-iconos">
                         <a href="#" aria-label="Instagram">IG</a>
                         <a href="#" aria-label="Facebook">FB</a>
@@ -231,15 +253,23 @@
 
                     <% if ("existe".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
-                            Ese correo o nombre de usuario ya está registrado.
+                            Ese correo o nombre de usuario ya est&aacute; registrado.
                         </p>
                     <% } else if ("campos".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
                             Completa los datos obligatorios para crear tu cuenta.
                         </p>
+                    <% } else if ("password".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            La contrase&ntilde;a debe tener minimo 8 caracteres, una mayuscula, una minuscula, un numero y un simbolo.
+                        </p>
+                    <% } else if ("confirmar".equals(request.getParameter("error"))) { %>
+                        <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
+                            Las contrase&ntilde;as no coinciden.
+                        </p>
                     <% } else if ("db".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
-                            No se pudo guardar el registro. Revisa que MySQL esté encendido y que exista la base relaxzone.
+                            No se pudo guardar el registro. Revisa que MySQL est&eacute; encendido y que exista la base relaxzone.
                         </p>
                     <% } else if ("driver".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
@@ -247,7 +277,7 @@
                         </p>
                     <% } else if ("credenciales".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
-                            MySQL rechazó el usuario o contraseña. Revisa que root use la contraseña admin123.
+                            MySQL rechaz&oacute; el usuario o contrase&ntilde;a. Revisa que root use la contrase&ntilde;a admin123.
                         </p>
                     <% } else if ("base".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
@@ -255,7 +285,7 @@
                         </p>
                     <% } else if ("conexion".equals(request.getParameter("error"))) { %>
                         <p style="background:rgba(255,82,82,0.12); border:1px solid #ff5252; color:#ffb4b4; padding:.8rem; border-radius:8px; margin-bottom:1rem;">
-                            No se pudo conectar con MySQL. Verifica que el servidor esté encendido en el puerto 3306.
+                            No se pudo conectar con MySQL. Verifica que el servidor est&eacute; encendido en el puerto 3306.
                         </p>
                     <% } %>
 
@@ -273,20 +303,23 @@
                             <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
                         </div>
                         <div class="registro-field">
-                            <label for="correo">Correo electrónico</label>
-                            <input type="email" id="correo" name="correo" required>
+                            <label for="correo">Correo electr&oacute;nico</label>
+                            <input type="email" id="correo" name="correo" placeholder="ej.correo@gmail.com" required>
                         </div>
                         <div class="registro-field">
                             <label for="nombreUsuario">Nombre de usuario</label>
-                            <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+                            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="ej. ximena07" required>
                         </div>
                         <div class="registro-field">
-                            <label for="password">Contraseña</label>
-                            <input type="password" id="password" name="password" placeholder="Mín. 8" required>
+                            <label for="password">Contrase&ntilde;a</label>
+                            <input type="password" id="password" name="password" placeholder="8+ caracteres" autocomplete="new-password" required>
+                            <div id="passwordHelp" class="password-help" aria-live="polite">
+                                Usa mayuscula, minuscula, numero y simbolo.
+                            </div>
                         </div>
                         <div class="registro-field">
-                            <label for="confirmPassword">Confirmar contraseña</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <label for="confirmPassword">Confirmar contrase&ntilde;a</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required>
                         </div>
                         <div class="registro-field">
                             <label for="fotoPerfil">Foto de perfil</label>
@@ -295,7 +328,7 @@
                     </div>
 
                     <button type="submit" class="registro-submit">Registrarme</button>
-                    <p class="registro-login">¿Ya tienes cuenta? <a href="login.jsp">Inicia sesión</a></p>
+                    <p class="registro-login">&iquest;Ya tienes cuenta? <a href="login.jsp">Inicia sesi&oacute;n</a></p>
                 </form>
             </div>
         </section>

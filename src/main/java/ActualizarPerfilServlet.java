@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import datos.DBConnection;
@@ -93,10 +95,12 @@ public class ActualizarPerfilServlet extends HttpServlet {
                     carpeta.mkdirs();
                 }
 
-                String nombreFinal = System.currentTimeMillis() + "_" + usuario + extension;
+                String nombreSeguro = usuario.replaceAll("[^A-Za-z0-9_.-]", "_");
+                String nombreFinal = System.currentTimeMillis() + "_" + nombreSeguro + extension;
                 File archivoDestino = new File(carpeta, nombreFinal);
 
                 fotoPart.write(archivoDestino.getAbsolutePath());
+                guardarCopiaPersistente(archivoDestino, nombreFinal);
 
                 fotoPerfil = carpetaRelativa + "/" + nombreFinal;
             }
@@ -130,6 +134,19 @@ public class ActualizarPerfilServlet extends HttpServlet {
                 ps.setString(11, usuarioAnterior);
 
                 ps.executeUpdate();
+
+                Integer usuarioId = (Integer) session.getAttribute("usuarioId");
+                if (usuarioId != null) {
+                    String sqlTalento = "INSERT INTO comunidad_talentos (usuario_id, talento, busca) "
+                            + "VALUES (?, ?, ?) "
+                            + "ON DUPLICATE KEY UPDATE talento = VALUES(talento), busca = VALUES(busca)";
+                    try (PreparedStatement psTalento = con.prepareStatement(sqlTalento)) {
+                        psTalento.setInt(1, usuarioId);
+                        psTalento.setString(2, talentos);
+                        psTalento.setString(3, intereses);
+                        psTalento.executeUpdate();
+                    }
+                }
             }
 
             session.setAttribute("nombres", nombres);
@@ -149,6 +166,32 @@ public class ActualizarPerfilServlet extends HttpServlet {
 
         } catch (Exception e) {
             throw new ServletException("Error al actualizar perfil", e);
+        }
+    }
+
+    private void guardarCopiaPersistente(File archivoSubido, String nombreFinal) throws IOException {
+        String realPath = getServletContext().getRealPath("/");
+        if (realPath == null || archivoSubido == null || !archivoSubido.exists()) {
+            return;
+        }
+
+        File actual = new File(realPath).getCanonicalFile();
+        while (actual != null) {
+            File webappProyecto = new File(actual, "src/main/webapp");
+            if (webappProyecto.isDirectory()) {
+                File carpetaPersistente = new File(webappProyecto, "uploads/perfiles");
+                if (!carpetaPersistente.exists()) {
+                    carpetaPersistente.mkdirs();
+                }
+
+                Files.copy(
+                        archivoSubido.toPath(),
+                        new File(carpetaPersistente, nombreFinal).toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
+                );
+                return;
+            }
+            actual = actual.getParentFile();
         }
     }
 }

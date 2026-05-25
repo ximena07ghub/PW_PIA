@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relax Zone</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -480,18 +480,18 @@
 
             <div class="busqueda-nav">
                 <span class="icono-lupa"></span>
-                <input type="text" id="searchInput" placeholder="Busca por emoción, talento, propósito...">
+                <input type="text" id="searchInput" placeholder="Busca por emocion, talento, propossito...">
                 <button id="btnToggleFiltros" class="btn-filtros-nav">Filtros</button>
 
                 <div id="panelFiltros" class="panel-filtros-flotante oculto">
                     <div class="filter-group">
-                        <label>Categoría</label>
+                        <label>Categoria</label>
                         <div class="filter-options">
                             <button class="filter-chip activo" type="button" data-filter="todas">Todas</button>
                             <button class="filter-chip" type="button" data-filter="bienestar">Bienestar</button>
-                            <button class="filter-chip" type="button" data-filter="espiritualidad">Propósito</button>
+                            <button class="filter-chip" type="button" data-filter="espiritualidad">Proposito</button>
                             <button class="filter-chip" type="button" data-filter="creatividad">Creatividad</button>
-                            <button class="filter-chip" type="button" data-filter="hibrido">Híbridos</button>
+                            <button class="filter-chip" type="button" data-filter="hibrido">Hibridos</button>
                         </div>
                     </div>
                 </div>
@@ -503,10 +503,10 @@
                     <a href="dashboard.jsp" class="link-secundario">Mis cursos</a>
                     <a href="comunidad.jsp" class="link-secundario">Comunidad</a>
                     <a href="perfil.jsp" class="link-secundario">Perfil</a>
-                    <a href="LogoutServlet" class="link-secundario">Cerrar sesión</a>
+                    <a href="LogoutServlet" class="link-secundario">Cerrar sesion</a>
                 <% } else { %>
                     <a href="login.jsp" class="link-secundario">Entrar</a>
-                    <a href="registro.jsp" class="btn-primario">Regístrate</a>
+                    <a href="registro.jsp" class="btn-primario">Registrate</a>
                 <% } %>
             </div>
         </div>
@@ -516,15 +516,13 @@
         <header class="hero-split">
             <div class="hero-texto">
                 <h1>Encuentra tu centro, <br><span>potencia tu talento.</span></h1>
-                <p>Una plataforma para aprender a conocerte, sanar, crear y vivir con propósito. Cursos gratuitos con lecturas, ejercicios y referencias que puedes aplicar a tu ritmo.</p>
+                <p>Una plataforma para aprender a conocerte, sanar, crear y vivir con proposito. Cursos gratuitos con lecturas, ejercicios y referencias que puedes aplicar a tu ritmo.</p>
 
                 <div class="hero-botones">
                     <a href="categorias.jsp" class="btn-primario">Explorar cursos</a>
                     <a href="comunidad.jsp" class="btn-quiet">Crear comunidad</a>
                     <% if (sesionActiva) { %>
                         <a href="dashboard.jsp" class="btn-secundario">Continuar aprendiendo</a>
-                    <% } else { %>
-                        <a href="login.jsp" class="btn-secundario">Guardar mi avance</a>
                     <% } %>
                 </div>
             </div>
@@ -540,7 +538,7 @@
                 <p>Aprende a identificar emociones, regular la mente y cuidar tu autoestima.</p>
             </article>
             <article class="pillar-card">
-                <strong>Espiritualidad y propósito</strong>
+                <strong>Espiritualidad y prop&oacute;sito</strong>
                 <p>Explora identidad, fe, sentido de vida y procesos de sanidad interior.</p>
             </article>
             <article class="pillar-card">
@@ -552,116 +550,18 @@
         <section id="cursos">
             <div class="section-intro">
                 <h2>Cursos disponibles</h2>
-                <p>Selecciona una tarjeta para verla más grande o entra al curso para revisar módulos, recursos y actividades.</p>
+                <p>Selecciona una tarjeta para verla ma grande o entra al curso para revisar modulos, recursos y actividades.</p>
             </div>
 
             <div class="carrusel-container" id="coursesCarousel">
-                <div class="carrusel-track" id="coursesTrack">
-                    <a class="home-course-card is-active" href="curso_detalle1.jsp?id=1" data-category="bienestar" data-keywords="gestion emociones bienestar identificar expresar reaccion comunicacion">
-                        <div class="card-img-container"><img src="img/diez.jpg" alt="Gestión de emociones"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Gestión de emociones</h3><p>Identifica, regula y expresa lo que sientes de forma saludable.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=2" data-category="bienestar" data-keywords="autoestima seguridad comparacion valor personal amor propio">
-                        <div class="card-img-container"><img src="img/uno.jpg" alt="Sanando mi autoestima"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Sanando mi autoestima</h3><p>Reconstruye tu valor personal y deja de vivir desde la comparación.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=3" data-category="bienestar" data-keywords="ansiedad sobrepensamiento calma mente presente respiracion">
-                        <div class="card-img-container"><img src="img/seis.jpg" alt="Ansiedad y sobrepensamiento"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Ansiedad y sobrepensamiento</h3><p>Técnicas prácticas para calmar la mente y volver al presente.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=4" data-category="espiritualidad" data-keywords="proposito identidad sentido vida espiritualidad valores">
-                        <div class="card-img-container"><img src="img/dos.jpg" alt="Descubriendo mi propósito"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Descubriendo mi propósito</h3><p>Conecta identidad, dones y dirección para tu vida.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=5" data-category="espiritualidad" data-keywords="fe tiempos dificiles confianza proceso resiliencia esperanza">
-                        <div class="card-img-container"><img src="img/siete.jpg" alt="Fe en tiempos difíciles"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Fe en tiempos difíciles</h3><p>Fortalece tu confianza cuando la vida se siente incierta.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=6" data-category="espiritualidad" data-keywords="sanidad interior heridas perdon pasado soltar">
-                        <div class="card-img-container"><img src="img/tres.jpg" alt="Sanidad interior"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Sanidad interior</h3><p>Trabaja heridas emocionales, perdón y procesos para soltar.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=7" data-category="creatividad" data-keywords="talento creatividad dones habilidades miedo crear">
-                        <div class="card-img-container"><img src="img/cinco.jpg" alt="Descubre tu talento"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Descubre tu talento</h3><p>Explora habilidades y crea un primer mini proyecto.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=8" data-category="creatividad" data-keywords="redes contenido marca personal creatividad mostrarse">
-                        <div class="card-img-container"><img src="img/ocho.jpg" alt="Crecer en redes"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Crecer en redes</h3><p>Construye una presencia creativa sin perder autenticidad.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=9" data-category="creatividad" data-keywords="comunidad colaborar networking proyectos equipo">
-                        <div class="card-img-container"><img src="img/cuatro.jpg" alt="Crear en comunidad"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Crear en comunidad</h3><p>Conecta con otras personas para convertir ideas en proyectos.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=10" data-category="hibrido" data-keywords="crea proposito talento espiritualidad impacto ayudar">
-                        <div class="card-img-container"><img src="img/imagen2.png" alt="Crea con propósito"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>Crea con propósito</h3><p>Une tu talento con impacto para ayudar a otras personas.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=11" data-category="hibrido" data-keywords="talento ingreso dinero oferta clientes mentalidad">
-                        <div class="card-img-container"><img src="img/nueve.jpg" alt="De talento a ingreso"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>De talento a ingreso</h3><p>Convierte lo que sabes en una primera oferta honesta y útil.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card" href="curso_detalle1.jsp?id=12" data-category="hibrido" data-keywords="vida sentido habitos direccion proposito plan">
-                        <div class="card-img-container"><img src="img/imagen1.png" alt="Vida con sentido"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>Vida con sentido</h3><p>Diseña hábitos, prioridades y dirección con intención.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=1" data-category="bienestar" data-keywords="gestion emociones bienestar identificar expresar reaccion comunicacion">
-                        <div class="card-img-container"><img src="img/diez.jpg" alt="Gestión de emociones"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Gestión de emociones</h3><p>Identifica, regula y expresa lo que sientes de forma saludable.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=2" data-category="bienestar" data-keywords="autoestima seguridad comparacion valor personal amor propio">
-                        <div class="card-img-container"><img src="img/uno.jpg" alt="Sanando mi autoestima"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Sanando mi autoestima</h3><p>Reconstruye tu valor personal y deja de vivir desde la comparación.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=3" data-category="bienestar" data-keywords="ansiedad sobrepensamiento calma mente presente respiracion">
-                        <div class="card-img-container"><img src="img/seis.jpg" alt="Ansiedad y sobrepensamiento"></div>
-                        <div class="card-contenido"><span class="tag">Bienestar</span><h3>Ansiedad y sobrepensamiento</h3><p>Técnicas prácticas para calmar la mente y volver al presente.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=4" data-category="espiritualidad" data-keywords="proposito identidad sentido vida espiritualidad valores">
-                        <div class="card-img-container"><img src="img/dos.jpg" alt="Descubriendo mi propósito"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Descubriendo mi propósito</h3><p>Conecta identidad, dones y dirección para tu vida.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=5" data-category="espiritualidad" data-keywords="fe tiempos dificiles confianza proceso resiliencia esperanza">
-                        <div class="card-img-container"><img src="img/siete.jpg" alt="Fe en tiempos difíciles"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Fe en tiempos difíciles</h3><p>Fortalece tu confianza cuando la vida se siente incierta.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=6" data-category="espiritualidad" data-keywords="sanidad interior heridas perdon pasado soltar">
-                        <div class="card-img-container"><img src="img/tres.jpg" alt="Sanidad interior"></div>
-                        <div class="card-contenido"><span class="tag">Propósito</span><h3>Sanidad interior</h3><p>Trabaja heridas emocionales, perdón y procesos para soltar.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=7" data-category="creatividad" data-keywords="talento creatividad dones habilidades miedo crear">
-                        <div class="card-img-container"><img src="img/cinco.jpg" alt="Descubre tu talento"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Descubre tu talento</h3><p>Explora habilidades y crea un primer mini proyecto.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=8" data-category="creatividad" data-keywords="redes contenido marca personal creatividad mostrarse">
-                        <div class="card-img-container"><img src="img/ocho.jpg" alt="Crecer en redes"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Crecer en redes</h3><p>Construye una presencia creativa sin perder autenticidad.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=9" data-category="creatividad" data-keywords="comunidad colaborar networking proyectos equipo">
-                        <div class="card-img-container"><img src="img/cuatro.jpg" alt="Crear en comunidad"></div>
-                        <div class="card-contenido"><span class="tag">Creatividad</span><h3>Crear en comunidad</h3><p>Conecta con otras personas para convertir ideas en proyectos.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=10" data-category="hibrido" data-keywords="crea proposito talento espiritualidad impacto ayudar">
-                        <div class="card-img-container"><img src="img/imagen2.png" alt="Crea con propósito"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>Crea con propósito</h3><p>Une tu talento con impacto para ayudar a otras personas.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=11" data-category="hibrido" data-keywords="talento ingreso dinero oferta clientes mentalidad">
-                        <div class="card-img-container"><img src="img/nueve.jpg" alt="De talento a ingreso"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>De talento a ingreso</h3><p>Convierte lo que sabes en una primera oferta honesta y útil.</p><div class="card-meta"><span>4 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                    <a class="home-course-card duplicate" href="curso_detalle1.jsp?id=12" data-category="hibrido" data-keywords="vida sentido habitos direccion proposito plan">
-                        <div class="card-img-container"><img src="img/imagen1.png" alt="Vida con sentido"></div>
-                        <div class="card-contenido"><span class="tag">Híbrido</span><h3>Vida con sentido</h3><p>Diseña hábitos, prioridades y dirección con intención.</p><div class="card-meta"><span>5 módulos</span><span>Ver curso</span></div></div>
-                    </a>
-                </div>
+                <div class="carrusel-track" id="coursesTrack"></div>
             </div>
             <p class="no-results" id="noResults">No encontramos cursos con esos filtros. Prueba con otra palabra.</p>
         </section>
 
         <section class="home-cta">
             <div>
-                <h2>Talento, bienestar y propósito se construyen mejor acompañados.</h2>
+                <h2>Talento, bienestar y prop&oacute;sito se construyen mejor acompa&ntilde;ados.</h2>
                 <p>Entra al espacio social para compartir procesos, encontrar colaboradores y participar en retos creativos.</p>
             </div>
             <a href="comunidad.jsp" class="btn-primario">Crear comunidad</a>
@@ -670,21 +570,21 @@
         <section class="about-zone" id="sobre-nosotros">
             <div class="about-main">
                 <h3>Sobre Nosotros</h3>
-                <h2>¿Quiénes somos?</h2>
-                <p>Relax Zone es una comunidad y plataforma enfocada en el crecimiento personal, creativo y espiritual de jóvenes con talentos, ideas y deseo de impactar positivamente a otros.</p>
+                <h2>Quienes somos?</h2>
+                <p>Relax Zone es una comunidad y plataforma enfocada en el crecimiento personal, creativo y espiritual de j&oacute;venes con talentos, ideas y deseo de impactar positivamente a otros.</p>
                 <br>
-                <p>Nace con la intención de crear un espacio donde las personas puedan descubrir su valor, desarrollar sus habilidades y conectar con otros que compartan el deseo de crecer y vivir con propósito.</p>
+                <p>Nace con la intenci&oacute;n de crear un espacio donde las personas puedan descubrir su valor, desarrollar sus habilidades y conectar con otros que compartan el deseo de crecer y vivir con prop&oacute;sito.</p>
                 <br>
-                <p>Creemos que cada persona tiene algo especial que aportar al mundo, y que el talento, acompañado de apoyo, comunidad y dirección, puede convertirse en una herramienta para transformar vidas.</p>
+                <p>Creemos que cada persona tiene algo especial que aportar al mundo, y que el talento, acompa&ntilde;ado de apoyo, comunidad y direcci&oacute;n, puede convertirse en una herramienta para transformar vidas.</p>
             </div>
             <div class="mission-stack">
                 <article class="mission-card">
-                    <h3>Misión</h3>
-                    <p>Brindar un espacio de crecimiento personal, creativo y espiritual donde las personas puedan desarrollar sus talentos, fortalecer su bienestar emocional y conectar con una comunidad que inspire apoyo, propósito e impacto positivo.</p>
+                    <h3>Mision</h3>
+                    <p>Brindar un espacio de crecimiento personal, creativo y espiritual donde las personas puedan desarrollar sus talentos, fortalecer su bienestar emocional y conectar con una comunidad que inspire apoyo, prop&oacute;sito e impacto positivo.</p>
                 </article>
                 <article class="vision-card">
-                    <h3>Visión</h3>
-                    <p>Ser una comunidad reconocida por impulsar talentos y transformar vidas mediante la creatividad, el acompañamiento y el crecimiento integral, creando oportunidades donde las personas puedan sentirse valoradas, escuchadas y capaces de generar un cambio positivo en su entorno.</p>
+                    <h3>Vision</h3>
+                    <p>Ser una comunidad reconocida por impulsar talentos y transformar vidas mediante la creatividad, el acompa&ntilde;amiento y el crecimiento integral, creando oportunidades donde las personas puedan sentirse valoradas, escuchadas y capaces de generar un cambio positivo en su entorno.</p>
                 </article>
             </div>
         </section>
@@ -694,29 +594,29 @@
                 <h2>Preguntas frecuentes</h2>
                 <div class="faq-grid">
                     <article class="faq-item">
-                        <h3>¿Tienen algún costo los cursos?</h3>
+                        <h3>¿Tienen algun costo los cursos?</h3>
                         <p>La idea principal es ofrecer contenido gratuito y accesible. Algunas colaboraciones o talleres especiales pueden ayudar a sostener el proyecto.</p>
                     </article>
                     <article class="faq-item">
-                        <h3>¿Cómo puedo colaborar?</h3>
-                        <p>Puedes sumar ideas, creatividad, apoyo, talleres, donaciones o proyectos que ayuden a más personas a crecer y conectar.</p>
+                        <h3>¿Como puedo colaborar?</h3>
+                        <p>Puedes sumar ideas, creatividad, apoyo, talleres, donaciones o proyectos que ayuden a m&aacute;s personas a crecer y conectar.</p>
                     </article>
                     <article class="faq-item">
                         <h3>¿Necesito experiencia previa?</h3>
-                        <p>No. Los cursos están pensados para empezar desde cero, con ejercicios sencillos y rutas claras.</p>
+                        <p>No. Los cursos est&aacute;n pensados para empezar desde cero, con ejercicios sencillos y rutas claras.</p>
                     </article>
                     <article class="faq-item">
                         <h3>¿Es un grupo religioso?</h3>
-                        <p>No es un grupo religioso. Integramos espiritualidad, propósito y valores desde una mirada abierta, respetuosa y enfocada en crecimiento personal.</p>
+                        <p>No es un grupo religioso. Integramos espiritualidad, prop&oacute;sito y valores desde una mirada abierta, respetuosa y enfocada en crecimiento personal.</p>
                     </article>
                 </div>
             </div>
 
             <aside class="join-panel">
-                <h2>¿Quieres sumar tu talento?</h2>
-                <p>En Relax Zone creemos que cada persona puede aportar algo valioso. Ya sea compartiendo ideas, creatividad, apoyo o colaborando con nosotros, cada pequeña contribución ayuda a seguir construyendo espacios donde más personas puedan crecer, conectar y descubrir su propósito.</p>
+                <h2>&iquest;Quieres sumar tu talento?</h2>
+                <p>En Relax Zone creemos que cada persona puede aportar algo valioso. Ya sea compartiendo ideas, creatividad, apoyo o colaborando con nosotros, cada peque&ntilde;a contribuci&oacute;n ayuda a seguir construyendo espacios donde m&aacute;s personas puedan crecer, conectar y descubrir su prop&oacute;sito.</p>
                 <form class="join-form">
-                    <input type="email" placeholder="Tu correo electrónico">
+                    <input type="email" placeholder="Tu correo electr&oacute;nico">
                     <button type="button">Quiero colaborar</button>
                 </form>
             </aside>
@@ -725,38 +625,45 @@
 
     <section class="join-banner">
         <h2>Un espacio donde se conectan talentos y se crean proyectos juntos.</h2>
-        <a href="login.jsp" class="btn-primario">Únete hoy</a>
+        <a href="login.jsp" class="btn-primario">&Uacute;nete hoy</a>
     </section>
 
+    <%-- Footer: cierre del sitio con enlaces rapidos y contacto --%>
     <footer class="footer-pro">
         <div class="footer-grid">
             <div class="footer-col">
-                <span class="logo-icon"></span> <strong>RELAX ZONE</strong>
-                <p>Apoyo emocional, creativo y espiritual para impulsar talentos con propósito.</p>
+                <strong><span class="logo-icon"></span> RELAX ZONE</strong>
+                <p>Apoyo emocional, creativo y espiritual para impulsar talentos con prop&oacute;sito.</p>
             </div>
             <div class="footer-col">
                 <h4>Comunidad</h4>
                 <a href="#sobre-nosotros">Sobre nosotros</a>
-                <a href="#sobre-nosotros">Nuestra misión</a>
+                <a href="#sobre-nosotros">Nuestra misi&oacute;n</a>
                 <a href="comunidad.jsp">Espacio social</a>
             </div>
             <div class="footer-col">
                 <h4>Aprende</h4>
-                <a href="categorias.jsp">Categorías</a>
+                <a href="categorias.jsp">Categor&iacute;as</a>
                 <a href="dashboard.jsp">Mis cursos</a>
                 <a href="registro.jsp">Registro</a>
             </div>
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <p>hola@relaxzone.com</p>
-                <p>Monterrey, México</p>
+                <p>Monterrey, M&eacute;xico</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Ximena & Kevin | FCFM Programación Web I</p>
+            <p>&copy; 2026 Ximena & Kevin | FCFM Programaci&oacute;n Web I</p>
+            <p>Proyecto educativo sin costo para aprender, crear y conectar.</p>
         </div>
     </footer>
 
-    <script src="js/index.js"></script>
+    <script src="js/courses-data.js?v=2"></script>
+    <script src="js/courses-pages.js?v=4"></script>
+    <script>
+        RelaxZoneCoursesPages.initHome();
+    </script>
+    <script src="js/index.js?v=2"></script>
 </body>
 </html>
